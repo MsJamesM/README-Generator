@@ -1,6 +1,3 @@
-// TO DO:
-// ""a notice is added to the section of the README entitled License that explains which license the application is covered under"
-
 // packages needed for application
 const inquirer = require("inquirer");
 const fs = require("fs");
@@ -76,8 +73,10 @@ Contributions are not allowed for the project at this time. For more information
   }
 
   if (license !== "No license") {
+    const licenseData = getLicenseBadge(license);
     readmeContent += `## License
-${getLicenseBadge(license)}
+${licenseData.badge}
+${licenseData.description}
 
 `;
   }
@@ -87,17 +86,39 @@ ${getLicenseBadge(license)}
 
 const getLicenseBadge = (license) => {
   const licenseBadges = {
-    Apache:
-      "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)]",
-    "BSD 3":
-      "[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)]",
-    GNU: "[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)]",
-    MIT: "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]",
-    Mozilla:
-      "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)]",
+    Apache: {
+      badge:
+        "![License: Apache](https://img.shields.io/badge/License-Apache_2.0-blue.svg)",
+      description:
+        "This project is licensed under the Apache license. To learn more about the Apache license, please visit: https://www.apache.org/licenses",
+    },
+    "BSD 3": {
+      badge:
+        "![License: BSD 3](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)",
+      description:
+        "This project is licensed under the 3-Clause BSD license. To learn more about BSD licenses, please visit: https://en.wikipedia.org/wiki/BSD_licenses.",
+    },
+    "GPL v3": {
+      badge:
+        "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)]",
+      description:
+        "This project is licensed under the GNU General Public License (version 3). To learn more about GNU licenses, please visit: https://www.gnu.org/licenses/gpl-3.0.en.html",
+    },
+    MIT: {
+      badge:
+        "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)",
+      description:
+        "This project is licensed under the MIT License. To learn more about MIT licenses, please visit: https://en.wikipedia.org/wiki/MIT_License",
+    },
+    Mozilla: {
+      badge:
+        "![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)",
+      description:
+        "This project is licensed under the Mozilla Public License. To learn more about the Mozilla license, please visit: https://www.mozilla.org/en-US/MPL/",
+    },
   };
 
-  return licenseBadges[license] || "";
+  return licenseBadges[license] || { badge: "", description: "" };
 };
 
 const generateReadmeFile = (answers) => {
@@ -165,18 +186,18 @@ inquirer
     },
     {
       type: "list",
+      name: "license",
+      message: "Choose a license for your project",
+      choices: ["Apache", "BSD 3", "GNU", "MIT", "Mozilla", "No license"],
+    },
+    {
+      type: "list",
       name: "contributing",
       message: "Allow contributions?",
       choices: [
         { name: "Yes", value: "yes" },
         { name: "No", value: "no" },
       ],
-    },
-    {
-      type: "list",
-      name: "license",
-      message: "Choose a license for your project",
-      choices: ["Apache", "BSD 3", "GNU", "MIT", "Mozilla", "No license"],
     },
   ])
   .then((answers) => {

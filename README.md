@@ -1,9 +1,9 @@
-# Title
+# 
 
 ## Description
 
-## Table of Contents
 
+## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
@@ -14,16 +14,23 @@
 
 ## Installation
 
+
 ## Usage
+
 
 ## Credits
 
+
 ## Tests
+
 
 ## Questions
 
+
 ## Contributing
 
-## License
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)]
+## License
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+This project is licensed under the MIT License. To learn more about MIT licenses, please visit: https://en.wikipedia.org/wiki/MIT_License
+
