@@ -4,26 +4,56 @@ const fs = require("fs");
 const generateREADME = ({
   title,
   description,
+  tableOfContents,
+  contributing,
   installation,
   usage,
   credits,
   tests,
+  contributingGuidelines,
 }) => {
   let readmeContent = `# ${title}
 
 ## Description
 ${description}
 
-## Installation
+`;
+
+  if (tableOfContents === "yes") {
+    readmeContent += `## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [Tests](#tests)
+
+`;
+  }
+
+  if (contributing === "yes") {
+    readmeContent += `## Contributing
+${contributingGuidelines}
+
+`;
+  } else if (contributing === "no") {
+    readmeContent += `## Contributing
+Contributions are not allowed for the project at this time. For more information or inquiries, 
+
+`;
+  }
+
+  readmeContent += `## Installation
 ${installation}
 
-## Usage
+`;
+  readmeContent += `## Usage
 ${usage}
 
-## Credits
+`;
+  readmeContent += `## Credits
 ${credits}
 
-## Tests
+`;
+  readmeContent += `## Tests
 ${tests}
 
 `;
@@ -66,15 +96,53 @@ inquirer
       message:
         "If applicable, provide examples and instructions for how to run tests for this application",
     },
+    {
+      type: "list",
+      name: "tableOfContents",
+      message: "Include a Table of Contents section in your README?",
+      choices: [
+        { name: "Yes", value: "yes" },
+        { name: "No", value: "no" },
+      ],
+    },
+    {
+      type: "list",
+      name: "contributing",
+      message: "Allow contributions?",
+      choices: [
+        { name: "Yes", value: "yes" },
+        { name: "No", value: "no" },
+      ],
+    },
   ])
   .then((answers) => {
-    const readmePageContent = generateREADME(answers);
-
-    fs.writeFile("README.md", readmePageContent, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Successfully generated README!");
-      }
-    });
+    if (answers.contributing === "yes") {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "contributingGuidelines",
+            message:
+              "Please provide guidelines for contributing to the project:",
+          },
+        ])
+        .then((contributingAnswers) => {
+          answers = { ...answers, ...contributingAnswers };
+          generateReadmeFile(answers);
+        });
+    } else {
+      generateReadmeFile(answers);
+    }
   });
+
+const generateReadmeFile = (answers) => {
+  const readmePageContent = generateREADME(answers);
+
+  fs.writeFile("README.md", readmePageContent, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Successfully generated README!");
+    }
+  });
+};
