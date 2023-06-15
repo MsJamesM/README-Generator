@@ -67,7 +67,7 @@ ${contributingGuidelines}
 `;
   } else if (contributing === "no") {
     readmeContent += `## Contributing
-Contributions are not allowed for the project at this time. For more information or inquiries, 
+Contributions are not allowed for the project at this time.
 
 `;
   }
@@ -88,31 +88,31 @@ const getLicenseBadge = (license) => {
   const licenseBadges = {
     Apache: {
       badge:
-        "![License: Apache](https://img.shields.io/badge/License-Apache_2.0-blue.svg)",
+        "![License: Apache](https://img.shields.io/badge/License-Apache_2.0-pink.svg)\n",
       description:
         "This project is licensed under the Apache license. To learn more about the Apache license, please visit: https://www.apache.org/licenses",
     },
     "BSD 3": {
       badge:
-        "![License: BSD 3](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)",
+        "![License: BSD 3](https://img.shields.io/badge/License-BSD%203--Clause-red.svg)\n",
       description:
         "This project is licensed under the 3-Clause BSD license. To learn more about BSD licenses, please visit: https://en.wikipedia.org/wiki/BSD_licenses.",
     },
     "GPL v3": {
       badge:
-        "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)]",
+        "![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)\n",
       description:
         "This project is licensed under the GNU General Public License (version 3). To learn more about GNU licenses, please visit: https://www.gnu.org/licenses/gpl-3.0.en.html",
     },
     MIT: {
       badge:
-        "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)",
+        "![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)\n",
       description:
         "This project is licensed under the MIT License. To learn more about MIT licenses, please visit: https://en.wikipedia.org/wiki/MIT_License",
     },
     Mozilla: {
       badge:
-        "![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)",
+        "![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-red.svg)\n",
       description:
         "This project is licensed under the Mozilla Public License. To learn more about the Mozilla license, please visit: https://www.mozilla.org/en-US/MPL/",
     },
@@ -126,9 +126,9 @@ const generateReadmeFile = (answers) => {
 
   fs.writeFile("README.md", readmePageContent, (err) => {
     if (err) {
-      console.log("❌ Error - please try again ❌");
+      console.log("❌ ㅤError - please try again ❌");
     } else {
-      console.log("✔️ Successfully created README ✔️");
+      console.log("✔️ ㅤYour README has been created ✔️");
     }
   });
 };
@@ -144,8 +144,7 @@ inquirer
     {
       type: "input",
       name: "description",
-      message:
-        "Provide a description of your project. What is its purpose? How can it serve users?",
+      message: "Provide a description of your project",
     },
     {
       type: "input",
@@ -155,13 +154,13 @@ inquirer
     {
       type: "input",
       name: "usage",
-      message: "Provide examples and guidance for usage",
+      message: "Provide applicable examples and guidance for usage",
     },
     {
       type: "input",
       name: "credits",
       message:
-        "Cite the project's collaborators and include third-party resources used",
+        "Cite collaborators and any third-party resources used for the project",
     },
     {
       type: "input",
@@ -173,7 +172,7 @@ inquirer
       type: "input",
       name: "questions",
       message:
-        "Add your Github, email, and instructions for additional questions",
+        "Add your Github profile and email address for questions or feedback",
     },
     {
       type: "list",
@@ -188,7 +187,7 @@ inquirer
       type: "list",
       name: "license",
       message: "Choose a license for your project",
-      choices: ["Apache", "BSD 3", "GNU", "MIT", "Mozilla", "No license"],
+      choices: ["Apache", "BSD 3", "GPL v3", "MIT", "Mozilla", "No license"],
     },
     {
       type: "list",
